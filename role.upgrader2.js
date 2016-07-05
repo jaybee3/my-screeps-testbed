@@ -3,7 +3,7 @@ var roleUpgrader2 = {
     /** @param {Creep} creep **/
     run: function(creep) {
          var startCpu = Game.cpu.getUsed();
-        if(creep.carry.energy == 0) {
+        if(creep.carry.energy == 0 || creep.carry.energy < creep.carryCapacity) {
             var source = creep.checkMemoryForSource();
             if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(source);
