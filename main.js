@@ -4,6 +4,7 @@ var roleBuilder = require('role.builder');
 var roleRepairer = require('role.repairer');
 var roleHarvester2 = require('role.harvester2');
 var roleUpgrader2 = require('role.upgrader2');
+var spawnCheck = require('role.spawn');
 
 Creep.prototype.findMyClosestTarget = function findMyClosestTarget(){
     return this.pos.findClosestByPath(FIND_STRUCTURES, {
@@ -33,6 +34,8 @@ module.exports.loop = function () {
 
     console.log('Energy: ' + Game.spawns.Spawn1.room.energyAvailable + '/' + Game.spawns.Spawn1.room.energyCapacityAvailable);
 
+    spawnCheck.run(Game.spawns.Spawn1);
+
     for(var nameInMem in Memory.creeps){
     var x = false;
     for(var nameInGame in Game.creeps){
@@ -47,13 +50,13 @@ module.exports.loop = function () {
 } //memory check
 
     var roles = [
-    {role: 'harvester', cap: 2, duty: [WORK,CARRY,MOVE]},
-    {role: 'harvester2', cap: 2, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE]},
+    {role: 'harvester', cap: 0, duty: [WORK,CARRY,MOVE]},
+    {role: 'harvester2', cap: 0, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE]},
     {role: 'harvProto', cap: 0, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE,WORK,WORK,CARRY,CARRY, MOVE, MOVE]},
     {role: 'builder', cap: 1, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE,WORK,CARRY,MOVE]},
-    {role: 'upgrader', cap: 2, duty: [WORK,CARRY,MOVE]},
+    {role: 'upgrader', cap: 1, duty: [WORK,CARRY,MOVE]},
     {role: 'upgrader2', cap: 1, duty: [WORK,CARRY,MOVE]},
-    {role: 'bigHarvester', cap: 2, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE,WORK,WORK,CARRY,CARRY, MOVE, MOVE]},//,MOVE,MOVE]},
+    {role: 'bigHarvester', cap: 0, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE,WORK,WORK,CARRY,CARRY, MOVE, MOVE]},//,MOVE,MOVE]},
     {role: 'repairer', cap: 1, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE,WORK,CARRY,MOVE]},
     {role: 'bigUpgrader', cap: 2, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE,WORK,WORK,CARRY,CARRY, MOVE, MOVE]}//,MOVE,MOVE]},
 ]; //roles to be redone for auto production based on avail energy
@@ -74,15 +77,19 @@ module.exports.loop = function () {
             case 'harvProto':
                 roleHarvester.run(creep);
                 break;
-            case 'harvester2':   
+            case 'harvester2':
+            case 'newHarv':
                 roleHarvester2.run(creep);
                 break;
             case 'upgrader':
-            case 'upgrader2':
             case 'bigUpgrader':   
                 roleUpgrader.run(creep);       
                 break;
-            case 'builder':    
+            case 'upgrader2':
+            case 'newUpgr':
+                roleUpgrader2.run(creep);
+                break;
+            case 'builder':
                 roleBuilder.run(creep);
                 break;
             case 'repairer': 
