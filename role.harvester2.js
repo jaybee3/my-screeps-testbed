@@ -16,7 +16,7 @@ var roleHarvester2 = {
                  creep.moveTo(source);
                  console.log('H3a: ' + (Game.cpu.getUsed() - startCpu));
              }
-         }else {
+         } else {
              var target = Game.getObjectById(creep.memory.tgt.id);
              switch (creep.transfer(target,RESOURCE_ENERGY)) {
                  case ERR_NOT_IN_RANGE:
@@ -24,10 +24,12 @@ var roleHarvester2 = {
                      console.log('H3b1: ' + (Game.cpu.getUsed() - startCpu));
                      break;
                  case ERR_FULL:
-                     if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
+                     /**if(creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                          creep.moveTo(creep.room.controller);
                          console.log('H3b2: ' + (Game.cpu.getUsed() - startCpu));
-                     }
+                     }*/
+                     creep.memory.tgt = creep.findMyClosestTarget();
+                     creep.moveTo(target);
                      break;
              }
          } // Got CAPACITY?

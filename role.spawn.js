@@ -41,16 +41,19 @@ var roleSpawn = {
 
         console.log(getCost(defaultDuty) + ':' + defaultDuty);
 
-        var countNewHarv = _.filter(Game.creeps,(creep)=> creep.memory.role == 'newHarv').length;
-        var countNewUpgr = _.filter(Game.creeps,(creep)=> creep.memory.role == 'newUpgr').length;
+        var countNewHarv = _.filter(Game.creeps,(creep)=> creep.memory.role == 'newHarvester').length;
+        var countNewUpgr = _.filter(Game.creeps,(creep)=> creep.memory.role == 'newUpgrader').length;
         console.log('H' + countNewHarv + ':U' + countNewUpgr)
-        if (countNewHarv == 0 && spawn.room.energyAvailable >= 300){
-            console.log('Spawning new newHarv:' + Game.spawns.Spawn1.createCreep(defaultDuty,undefined, {role: 'newHarv'}));
+        if (countNewHarv < 3 && spawn.room.energyAvailable >= 300){
+            var newName = Game.spawns.Spawn1.createCreep(defaultDuty, undefined, {role: 'newHarvester'} )
         }
         if (countNewUpgr == 0 && spawn.room.energyAvailable > 600){
-            console.log('Spawning new newUpgr:' + Game.spawns.Spawn1.createCreep(defaultDuty,undefined, {role: 'newUpgr'}));
+            var newName = Game.spawns.Spawn1.createCreep(defaultDuty, undefined, {role: 'newUpgrader'} )
         }
-
+    
+        if(newName) {
+            console.log('Spawning new ' + Game.creeps[newName].memory.role + ': ' + newName);  
+        }
 
         /**
          var roles = [

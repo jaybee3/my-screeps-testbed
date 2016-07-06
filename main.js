@@ -54,11 +54,11 @@ module.exports.loop = function () {
     {role: 'harvester2', cap: 0, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE]},
     {role: 'harvProto', cap: 0, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE,WORK,WORK,CARRY,CARRY, MOVE, MOVE]},
     {role: 'builder', cap: 1, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE,WORK,CARRY,MOVE]},
-    {role: 'upgrader', cap: 1, duty: [WORK,CARRY,MOVE]},
+    {role: 'upgrader', cap: 0, duty: [WORK,CARRY,MOVE]},
     {role: 'upgrader2', cap: 1, duty: [WORK,CARRY,MOVE]},
     {role: 'bigHarvester', cap: 0, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE,WORK,WORK,CARRY,CARRY, MOVE, MOVE]},//,MOVE,MOVE]},
     {role: 'repairer', cap: 1, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE,WORK,CARRY,MOVE]},
-    {role: 'bigUpgrader', cap: 2, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE,WORK,WORK,CARRY,CARRY, MOVE, MOVE]}//,MOVE,MOVE]},
+    {role: 'bigUpgrader', cap: 0, duty: [WORK,CARRY,MOVE,WORK,CARRY,MOVE,WORK,WORK,CARRY,CARRY, MOVE, MOVE]}//,MOVE,MOVE]},
 ]; //roles to be redone for auto production based on avail energy
     roles.forEach( function(role) {
         var type = _.filter(Game.creeps, (creep) => creep.memory.role == role.role);
@@ -78,7 +78,7 @@ module.exports.loop = function () {
                 roleHarvester.run(creep);
                 break;
             case 'harvester2':
-            case 'newHarv':
+            case 'newHarvester':
                 roleHarvester2.run(creep);
                 break;
             case 'upgrader':
@@ -86,7 +86,7 @@ module.exports.loop = function () {
                 roleUpgrader.run(creep);       
                 break;
             case 'upgrader2':
-            case 'newUpgr':
+            case 'newUpgrader':
                 roleUpgrader2.run(creep);
                 break;
             case 'builder':
