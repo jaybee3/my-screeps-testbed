@@ -41,8 +41,8 @@ var roleSpawn = {
 
         console.log(getCost(defaultDuty) + ':' + defaultDuty);
 
-        var countNewHarv = _.filter(Game.creeps,(creep)=> creep.memory.role == 'newHarv');
-        var countNewUpgr = _.filter(Game.creeps,(creep)=> creep.memory.role == 'newUpgr');
+        var countNewHarv = _.filter(Game.creeps,(creep)=> creep.memory.role == 'newHarv').length;
+        var countNewUpgr = _.filter(Game.creeps,(creep)=> creep.memory.role == 'newUpgr').length;
         if (countNewHarv == 0 && spawn.room.energyAvailable >= 300){
             console.log('Spawning new newHarv:' + Game.spawns.Spawn1.createCreep(defaultDuty,undefined, {role: 'newHarv'}));
         }
