@@ -35,7 +35,7 @@ var roleSpawn = {
         }
         console.log(getCost(defaultDuty) + ':' + defaultDuty);
 
-        while (getCost(defaultDuty) >= spawn.room.energyAvailable) {
+        while (getCost(defaultDuty) > spawn.room.energyAvailable) {
             defaultDuty.pop();
         }
 
